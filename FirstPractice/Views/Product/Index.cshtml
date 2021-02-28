@@ -1,0 +1,197 @@
+﻿@model IEnumerable<FirstPractice.Models.Product>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+@{
+    ViewBag.Title = "每個產品的資訊";
+}
+
+<h2>每個產品的資訊</h2>
+<a href="~/Product/Insert" class="btn btn-primary">新增產品</a>
+<div>
+    搜索產品名稱 : <input name="key" type="text" id="key" onkeydown="onSearch(this)" value="" />
+    搜索種類ID :  <input name="key" type="text" id="key" onkeydown="onSearch1(this)" value="" />
+</div>
+
+<div>
+    搜索種類ID :
+    @*@foreach (var _product in Model)
+        {
+             <input type="radio" name="CategoryID" value="@_product.CategoryID" onclick="onSearch2(this.value)" />@_product.CategoryID
+        }*@
+    <input type="radio" name="CategoryID" value="1" onclick="onSearch2(this.value)" />1 Beverages
+    <input type="radio" name="CategoryID" value="2" onclick="onSearch2(this.value)" />2 Condiments
+    <input type="radio" name="CategoryID" value="3" onclick="onSearch2(this.value)" />3 Confections
+    <input type="radio" name="CategoryID" value="4" onclick="onSearch2(this.value)" />4 Dairy Products
+    <input type="radio" name="CategoryID" value="5" onclick="onSearch2(this.value)" />5 Grains/Cereals
+    <input type="radio" name="CategoryID" value="6" onclick="onSearch2(this.value)" />6 Meat/Poultry
+    <input type="radio" name="CategoryID" value="7" onclick="onSearch2(this.value)" />7 Produce
+    <input type="radio" name="CategoryID" value="8" onclick="onSearch2(this.value)" />8 Seafood
+    <input type="radio" name="CategoryID" onclick="onSearch3(this.value)" />全部
+</div>
+
+@*<div>
+    搜索價錢 :
+    @foreach (var _product in Model)
+        {
+             <input type="radio" name="CategoryID" value="@_product.CategoryID" onclick="onSearch2(this.value)" />@_product.CategoryID
+        }
+    <input type="radio" name="UnitPrice" value="20.000" onclick="onSearch4(this.value)" />20
+    <input type="radio" name="UnitPrice" onclick="onSearch3(this.value)" />全部
+</div>*@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<body>
+    <table class="table table-bordered table-hover" border="1" id="store">
+        <thead>
+            <tr>
+                <th>產品</th>
+                <th>產品名稱</th>
+                <th>分類編號</th>
+                <th>觀看種類資訊</th>
+                <th>供應商編號</th>
+                <th>QuantityPerUnit</th>
+                <th>價錢</th>
+                <th>庫存</th>
+                <th>訂購量</th>
+                <th>編輯</th>
+                <th>刪除</th>
+            </tr>
+
+        </thead>
+        <tbody>
+            @foreach (var _product in Model)
+            {
+                <tr>
+                    <td>@_product.ProductID</td>
+                    <td>@_product.ProductName</td>
+                    <td>@_product.CategoryID</td>
+                    <td><a href="~/Product/Search2/@_product.CategoryID" class="btn btn-primary">觀看種類資訊</a></td>
+                    <td><a href="~/Product/Search1/@_product.SupplierID" class="btn btn-primary">觀看供應商資訊</a></td>
+                    <td>@_product.QuantityPerUnit</td>
+                    <td>@_product.UnitPrice</td>
+                    <td>@_product.UnitsInStock</td>
+                    <td>@_product.UnitsOnOrder</td>
+                    <td> <a href="~/Product/Edit/@_product.ProductID" class="btn btn-primary">編輯</a> </td>
+                    <td><a href="~/Product/Delete/@_product.ProductID" class="btn btn-danger">刪除</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <p align="center">
+        第 1 頁
+    </p>
+    <a id="btn1" class="btn btn-success">首頁</a>
+    <a id="btn2" class="btn btn-success">上一頁</a>
+    <div class="btn-group">
+        <a id="1" class="btn btn-info">1</a>
+        <a href="~/Product/Index1" id="1" class="btn btn-info">2</a>
+        <a href="~/Product/Index2" id="1" class="btn btn-info">3</a>
+        <a href="~/Product/Index3" id="1" class="btn btn-info">4</a>
+    </div>
+    <a href="~/Product/Index1" id="btn3" class="btn btn-success">下一頁</a>
+    <a href="~/Product/Index3" id="btn4" class="btn btn-success">尾頁</a>
+</body>
+
+</html>
+
+
+<script type="text/javascript">
+    function onSearch(obj) {
+        setTimeout(function () {
+            var storeId = document.getElementById('store');
+            var rowsLength = storeId.rows.length;
+            var key = obj.value;
+
+            var searchCol = 1;
+            for (var i = 1; i < rowsLength; i++) {
+                var searchText = storeId.rows[i].cells[searchCol].innerHTML;
+
+                if (searchText.match(key)) {
+                    storeId.rows[i].style.display = '';
+                } else {
+                    storeId.rows[i].style.display = 'none';
+                }
+            }
+        }, 200);
+    }
+</script>
+<script type="text/javascript">
+    function onSearch1(obj) {
+        setTimeout(function () {
+            var storeId = document.getElementById('store');
+            var rowsLength = storeId.rows.length;
+            var key = obj.value;
+
+            var searchCol = 2;
+
+            for (var i = 1; i < rowsLength; i++) {
+                var searchText = storeId.rows[i].cells[searchCol].innerHTML;
+
+                if (searchText.match(key)) {
+                    storeId.rows[i].style.display = '';
+                } else {
+                    storeId.rows[i].style.display = 'none';
+                }
+            }
+        }, 200);
+    }
+</script>
+<script type="text/javascript">
+    function onSearch2(searchContent) {
+        setTimeout(function () {
+            var storeId = document.getElementById('store');
+            var rowsLength = storeId.rows.length;
+
+            var searchCol = 2;
+            for (var i = 1; i < rowsLength; i++) {
+
+                var searchText = storeId.rows[i].cells[searchCol].innerHTML;
+                if (searchText.match(searchContent) || searchText.toUpperCase().match(searchContent.toUpperCase())) {
+                    storeId.rows[i].style.display = '';
+                } else {
+                    storeId.rows[i].style.display = 'none';
+                }
+            }
+        }, 200);
+
+    }
+</script>
+<script type="text/javascript">
+    function onSearch3(searchContent) {
+        setTimeout(function () {
+            var storeId = document.getElementById('store');
+            var rowsLength = storeId.rows.length;
+
+            var searchCol = 2;
+            for (var i = 1; i < rowsLength; i++) {
+
+                var searchText = storeId.rows[i].cells[searchCol].innerHTML;
+
+                if (searchContent) {
+                    storeId.rows[i].style.display = '';
+                } else {
+                    storeId.rows[i].style.display = 'none';
+                }
+            }
+            },200);
+
+    }
+</script>
+<script type="text/javascript">
+    function onSearch4(searchContent) {
+        setTimeout(function () {
+            var storeId = document.getElementById('store');
+            var rowsLength = storeId.rows.length;
+
+            var searchCol = 6;
+            for (var i = 1; i < rowsLength; i++) {
+
+                var searchText = storeId.rows[i].cells[searchCol].innerHTML;
+                if (searchText.match(searchContent) || searchText.toUpperCase().match(searchContent.toUpperCase())) {
+                    storeId.rows[i].style.display = '';
+                } else {
+                    storeId.rows[i].style.display = 'none';
+                }
+            }
+        }, 200);
+
+    }
+</script>

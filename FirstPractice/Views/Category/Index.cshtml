@@ -1,0 +1,74 @@
+﻿@model IEnumerable<FirstPractice.Models.Category>
+
+@{
+    ViewBag.Title = "產品分類資料";
+}
+
+
+<h2>產品分類資料</h2>
+
+<a href="~/Category/Insert" class="btn btn-primary">新增分類</a>
+
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>分類編號</th>
+            <th>分類名稱</th>
+            <th>描述</th>
+            <th>產品</th>
+            <th>分類裡的產品資料</th>
+            <th>圖片</th>
+            <th>編輯</th>
+            <th>刪除</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var _category in Model)
+        {
+            if (_category.CategoryName != null)
+            {
+                <tr>
+                    <td>@_category.CategoryID</td>
+                    <td>@_category.CategoryName</td>
+                    <td>@_category.Description</td>
+                    <td>
+                        <select onchange="location.href=this.options[this.selectedIndex].value" name="ProductID" class="form-control">
+                            @foreach (var _product in Model)
+                            {
+                                if (_product.ProductID != 0)
+                                {
+                                    if (_category.CategoryID == _product.CategoryID)
+                                    {
+                                        for (int i = 1; i < 9; i++)
+                                        {
+                                            if (_product.CategoryID == i)
+                                            {
+                                                <option value="https://localhost:44396/Category/Search4/@_product.ProductID"> @_product.ProductID @_product.ProductName</option>
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        </select>
+                    </td>
+                    <td><a href="~/Product/Search/@_category.CategoryID" class="btn btn-primary">觀看分類裡的產品</a></td>
+                    <td>
+                        @{ byte[] photo = _category.Picture;
+                            string imageSrc = null;
+                            if (photo != null)
+                            {
+                                MemoryStream ms = new MemoryStream();
+                                ms.Write(photo, 78, photo.Length - 78);
+                                string imageBase64 = Convert.ToBase64String(ms.ToArray());
+                                imageSrc = string.Format("data:image/gif;base64,{0}", imageBase64);
+                            }
+                        }
+                        <img src="@imageSrc" />
+                    </td>
+                    <td><a href="~/Category/Edit/@_category.CategoryID" class="btn btn-primary">編輯</a> </td>
+                    <td><a href="~/Category/Delete/@_category.CategoryID" class="btn btn-danger">刪除</a></td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>

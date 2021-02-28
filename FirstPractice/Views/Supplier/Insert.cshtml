@@ -1,0 +1,66 @@
+﻿@model IEnumerable<FirstPractice.Models.Supplier>
+@{
+    ViewBag.Title = "新增供應商";
+}
+
+@Html.AntiForgeryToken()
+
+    <h2>新增供應商</h2>
+    <form method="post" action="~/Supplier/Insert" class="form-horizontal">
+        <div class="form-group">
+            <label for="CompanyName" class="col-sm-2 control-label">供應商名稱</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" name="CompanyName" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="ContactName" class="col-sm-2 control-label">ContactName</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" name="ContactName" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="ContactTitle" class="col-sm-2 control-label">ContactTitle</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" name="ContactTitle" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="Address" class="col-sm-2 control-label">Address</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" name="Address" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="City" class="col-sm-2 control-label">City</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" name="City" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="PostalCode" class="col-sm-2 control-label">PostalCode</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" name="PostalCode" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="Country" class="col-sm-2 control-label">Country</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" name="Country" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="Phone" class="col-sm-2 control-label">Phone</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" name="Phone" />
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-default">
+                    新增
+                </button>
+            </div>
+        </div>
+    </form>
+

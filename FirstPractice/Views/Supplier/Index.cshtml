@@ -1,0 +1,112 @@
+﻿@model IEnumerable<FirstPractice.Models.Supplier>
+@{
+    ViewBag.Title = "供應商";
+}
+<h2>供應商</h2>
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>供應商編號</th>
+            <th>供應商名稱</th>
+            <th>聯絡人</th>
+            <th>聯絡人職位</th>
+            <th>地址</th>
+            <th>城市</th>
+            <th>郵遞區號</th>
+            <th>國家</th>
+            <th>連絡電話</th>
+            <th>刪除</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var _supplier in Model)
+        {
+            <tr>
+                <td>@_supplier.SupplierID</td>
+                <td>@_supplier.CompanyName</td>
+                <td>@_supplier.ContactName</td>
+                <td>@_supplier.ContactTitle</td>
+                <td>@_supplier.Address</td>
+                <td>@_supplier.City</td>
+                <td>@_supplier.PostalCode</td>
+                <td>@_supplier.Country</td>
+                <td>@_supplier.Phone</td>
+                <td><a href="~/Supplier/Delete/@_supplier.SupplierID" class="btn btn-danger">刪除</a></td>
+            </tr>
+        }
+    </tbody>
+</table>
+<script>
+    $(function () {
+        var $table = $('table');
+        var currentPage = 0;
+        var pageSize = 10;
+        $table.bind('paging', function () {
+            $table.find('tbody tr').hide().slice(currentPage * pageSize, (currentPage + 1) * pageSize).show();
+        });
+        var sumRows = $table.find('tbody tr').length;
+        var sumPages = Math.ceil(sumRows / pageSize);
+
+        var $pager = $('<div class="page"></div>');  
+        for (var pageIndex = 0; pageIndex < sumPages; pageIndex++) {
+            $('<a href="#" id="pageStyle" onclick="changCss(this)"><span>' + (pageIndex + 1) + '</span></a>').bind("click", { "newPage": pageIndex }, function (event) {
+                currentPage = event.data["newPage"];
+                $table.trigger("paging");
+            }).appendTo($pager);
+            $pager.append(" ");
+        }
+        $pager.insertAfter($table);
+        $table.trigger("paging");
+
+        var $pagess = $('#pageStyle');
+        $pagess[0].style.backgroundColor = "#4C4F9F";
+        $pagess[0].style.color = "#ffffff";
+    });
+
+    function changCss(obj) {
+        var arr = document.getElementsByTagName("a");
+        for (var i = 0; i < arr.length; i++) {
+            if (obj == arr[i]) { 
+                obj.style.backgroundColor = "#4C4F9F";
+                obj.style.color = "#ffffff";
+            }
+            else {
+                arr[i].style.color = "";
+                arr[i].style.backgroundColor = "";
+            }
+        }
+    }
+</script>
+<style>
+    table {
+        width: 600px;
+        text-align: center;
+    }
+
+        table tr th, td {
+            height: 30px;
+            line-height: 30px;
+            border: 1px solid #ccc;
+        }
+
+    #pageStyle {
+        display: inline-block;
+        width: 32px;
+        height: 32px;
+        border: 1px solid #CCC;
+        line-height: 32px;
+        text-align: center;
+        color: #999;
+        margin-top: 20px;
+        text-decoration: none;
+    }
+
+        #pageStyle:hover {
+            background-color: #CCC;
+        }
+
+        #pageStyle .active {
+            background-color: #0CF;
+            color: #ffffff;
+        }
+</style>

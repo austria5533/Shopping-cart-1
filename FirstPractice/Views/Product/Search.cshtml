@@ -1,0 +1,49 @@
+﻿@model IEnumerable<FirstPractice.Models.Product>
+
+@{
+    ViewBag.Title = "每個產品的資訊";
+
+}
+
+<h2>每個產品的資訊</h2>
+
+
+    <a href="~/Product/Insert1/@ViewBag.CategoryID" class="btn btn-primary">新增產品</a>
+
+    <table class="table table-bordered table-hover">
+
+
+
+        <thead>
+            <tr>
+                <th>分類編號</th>
+                <th>產品編號</th>
+                <th>產品名稱</th>
+                <th>供應商資訊</th>
+                <th>QuantityPerUnit</th>
+                <th>價錢</th>
+                <th>庫存</th>
+                <th>訂購量</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var _product in Model)
+            {
+                <tr>
+                    <td>@_product.CategoryID</td>
+                    <td>@_product.ProductID</td>
+                    <td>@_product.ProductName</td>
+                    <td><a href="~/Product/Search3/@_product.SupplierID" class="btn btn-primary">觀看供應商資訊</a></td>
+                    <td>@_product.QuantityPerUnit</td>
+                    <td>@_product.UnitPrice</td>
+                    <td>@_product.UnitsInStock</td>
+                    <td>@_product.UnitsOnOrder</td>
+
+                </tr>
+            }
+        </tbody>
+
+    </table>
+
+
+

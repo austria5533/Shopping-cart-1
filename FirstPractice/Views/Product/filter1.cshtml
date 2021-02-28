@@ -1,0 +1,126 @@
+﻿@model IEnumerable<FirstPractice.Models.Product>
+@*<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">*@
+@{
+    ViewBag.Title = "每個產品的資訊";
+}
+    <script src="~/Scripts/jquery-3.4.1.js"></script>
+<link rel="stylesheet" type="text/css" media="screen" href="css/bootstrap.min.css" />
+<script src="~/Scripts/knockout-3.5.1.js"></script>
+<script src="~/Scripts/knockout-3.5.1.debug.js"></script>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<body>
+    <form method="post" action="~/Product/filter1" class="form-horizontal">
+        <table class="table table-bordered table-hover" border="1">
+            <thead>
+                <tr class="dh">
+                    <th>ProductID</th>
+                    <th>ProductName</th>
+                    <th>SupplierID</th>
+                    <th>CategoryID</th>
+                    <th>QuantityPerUnit</th>
+                    <th>UnitPrice</th>
+                    <th>UnitsInStock</th>
+                    <th>UnitsOnOrder</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody data-bind="foreach: results" class="tbd">
+                <tr class="dl">
+                    <td data-bind="text: ProductID"   > </td>
+                    <td data-bind="text: ProductName"  > </td>
+                    <td data-bind="text: SupplierID" > </td>
+                    <td data-bind="text: CategoryID"> </td>
+                    <td data-bind="text: QuantityPerUnit"> </td>
+                    <td data-bind="text: UnitPrice" > </td>
+                    <td input data-bind="text: UnitsInStock" class="dlr" > </td>
+                    <td input data-bind="text: UnitsOnOrder" class="dlr"> </td>
+                    <td>
+                        <a href='#' data-bind='click: $root.removeContact'>Delete</a>
+                    </td>
+
+                </tr>
+            </tbody>
+
+        </table>
+        @*ProductID<input type="text" id="ProductID" />*@
+        ProductName<input type="text" id="ProductName" />
+        SupplierID<input type="text" id="SupplierID" />
+        CategoryID<input type="text" id="CategoryID" />
+        QuantityPerUnit<input type="text" id="QuantityPerUnit" />
+        UnitPrice<input type="text" id="UnitPrice" />
+        UnitsInStock<input type="text" id="UnitsInStock" />
+        UnitsOnOrder<input type="text" id="UnitsOnOrder" />
+        <div>
+        <button data-bind='click: addContact'>Add a contact</button>
+        @*<button data-bind='click: save, enable: results().length > 0'>Save to JSON</button>*@
+        <textarea data-bind='value: lastSavedJson' rows='5' cols='60' disabled='disabled'> </textarea>
+        <button id="Login" data-bind="submit: save">儲存</button>
+        @*<button data-bind='click: save'>Submit order</button>*@
+        </div>
+    </form>
+</body>
+
+</html>
+<script>
+    function MyViewModel() {
+        var self = this;
+        self.results = ko.observableArray();
+        filter: ko.observable(""),
+        ko.computed(function () {
+            $.getJSON('@Url.Action("Index6", "Product")', null,
+                self.results);
+           
+        });
+        //self.RemoveUser = function () {
+        //    self.results.remove(this);
+        //}
+        self.removeContact = function () {
+            self.results.remove(this);
+        };
+
+        $('#Login').click(function () {
+            var login_data = {
+                //"ProductID": $("#ProductID").val(),
+                 "ProductName": $("#ProductName").val(),
+                 "SupplierID": $("#SupplierID").val(),
+                 "CategoryID": $("#CategoryID").val(),
+                 "QuantityPerUnit": $("#QuantityPerUnit").val(),
+                 "UnitPrice": $("#UnitPrice").val(),
+                 "UnitsInStock": $("#UnitsInStock").val(),
+                 "UnitsOnOrder": $("#UnitsOnOrder").val(),
+             }
+             $.ajax({
+                 type: "POST",
+                 url: "Filter1",
+                 data: login_data,
+                 dataType: "json",
+
+                 })
+             });
+        self.addContact = function () {
+            self.results.push({
+                ProductID: "",
+                ProductName: "",
+                SupplierID: "",
+                CategoryID: "",
+                QuantityPerUnit: "",
+                UnitPrice: "",
+                UnitsInStock: "",
+                UnitsOnOrder: ""
+
+            });
+        };
+    
+        self.save = function () {
+            self.lastSavedJson(JSON.stringify(ko.toJS(self.results), null, 20));
+        };
+        self.lastSavedJson = ko.observable("")
+     
+    }
+    $(function () {
+        ko.applyBindings(new MyViewModel());
+    });
+
+
+</script>

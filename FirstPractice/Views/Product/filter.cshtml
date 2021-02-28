@@ -1,0 +1,132 @@
+﻿@model IEnumerable<FirstPractice.Models.Product>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+@{
+    ViewBag.Title = "每個產品的資訊";
+}
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="jquery-tablepage.js"></script>
+<script type="text/javascript" src="jquery.tablesorter.js"></script>
+<link rel="stylesheet" type="text/css" media="screen" href="css/bootstrap.min.css" />
+<script src="~/Scripts/knockout-3.5.1.js"></script>
+<script src="~/Scripts/knockout-3.5.1.debug.js"></script>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<body>
+    <h2>每個產品的資訊</h2>
+    <form action="" method="post" id="form1" name="form1">
+        <div>
+            搜索種類ID :
+            <input type="radio" name="CategoryID" id="btn1" value="1" />1 Beverages
+            <input type="radio" name="CategoryID" id="btn2" value="2" />2 Condiments
+            <input type="radio" name="CategoryID" id="btn3" value="3" />3 Confections
+            <input type="radio" name="CategoryID" id="btn4" value="4" />4 Dairy Products
+            <input type="radio" name="CategoryID" id="btn5" value="5" />5 Grains/Cereals
+            <input type="radio" name="CategoryID" id="btn6" value="6" />6 Meat/Poultry
+            <input type="radio" name="CategoryID" id="btn7" value="7" />7 Produce
+            <input type="radio" name="CategoryID" id="btn8" value="8" />8 Seafood
+            <input type="radio" name="CategoryID" id="btn" value="all"/>全部
+        </div>
+        <table class="table table-bordered table-hover " border="1">
+            <thead>
+                <tr class="dh">
+                    <th>ProductID</th>
+                    <th>ProductName</th>
+                    <th>SupplierID</th>
+                    <th>CategoryID</th>
+                    <th>QuantityPerUnit</th>
+                    <th>UnitPrice</th>
+                    <th>UnitsInStock</th>
+                    <th>UnitsOnOrder</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody data-bind="foreach: oProds" class="tbd">
+                <tr class="dl">
+                    <td data-bind="text: ProductID"></td>
+                    <td data-bind="text: ProductName"></td>
+                    <td data-bind="text: SupplierID"></td>
+                    <td data-bind="text: CategoryID"></td>
+                    <td data-bind="text: QuantityPerUnit"></td>
+                    <td data-bind="text: UnitPrice" class="dlr"></td>
+                    <td data-bind="text: UnitsInStock" class="dlr"></td>
+                    <td data-bind="text: UnitsOnOrder" class="dlr"></td>
+                    <td>
+                        <button data-bind="click: $parent.RemoveUser">移除</button>
+                    </td>
+
+                </tr>
+            </tbody>
+
+        </table>
+
+    </form>
+
+</body>
+
+</html>
+<script>
+         function MyViewModel() {
+            var self = this;
+             //self.results = ko.observableArray();
+             self.oProds = ko.observableArray();
+            ko.computed(function () {
+                $.getJSON('@Url.Action("Index6", "Product")', null,
+                    self.oProds);
+            });
+             self.RemoveUser = function () {
+                 self.results.remove(this);
+             }
+
+             //self.removeTask = function (task) { self.tasks.destroy(task) };
+             $('#btn').click(function () {
+                 $.getJSON('@Url.Action("Index6", "Product")', null,
+                     self.oProds);
+
+             });
+             $('#btn1').click(function () {
+                 $.getJSON('@Url.Action("Index7", "Product")', null,
+                     self.oProds);
+
+             });
+             $('#btn2').click(function () {
+                 $.getJSON('@Url.Action("Index8", "Product")', null,
+                     self.oProds);
+
+              });
+             $('#btn3').click(function () {
+                 $.getJSON('@Url.Action("Index9", "Product")', null,
+                     self.oProds);
+
+              });
+             $('#btn4').click(function () {
+                 $.getJSON('@Url.Action("Index10", "Product")', null,
+                     self.oProds);
+
+               });
+             $('#btn5').click(function () {
+                 $.getJSON('@Url.Action("Index11", "Product")', null,
+                     self.oProds);
+
+              });
+             $('#btn6').click(function () {
+                 $.getJSON('@Url.Action("Index12", "Product")', null,
+                     self.oProds);
+
+               });
+             $('#btn7').click(function () {
+                 $.getJSON('@Url.Action("Index13", "Product")', null,
+                     self.oProds);
+
+               });
+             $('#btn8').click(function () {
+                 $.getJSON('@Url.Action("Index14", "Product")', null,
+                     self.oProds);
+
+             });
+        }
+
+    $(function () {
+
+        ko.applyBindings(new MyViewModel());
+        });
+
+</script>

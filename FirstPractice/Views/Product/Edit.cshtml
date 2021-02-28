@@ -1,0 +1,74 @@
+﻿@{
+    ViewBag.Title = "產品修改";
+}
+
+<h2>產品修改</h2>
+
+@Html.AntiForgeryToken()
+<form method="post" action="~/Product/Edit" class="form-horizontal">
+    <div class="form-group">
+        <label for="ProductName" class="col-md-2 control-label">
+            ProductName
+        </label>
+        <div class="col-md-10">
+            <input type="hidden" name="ProductID" value="@Model.ProductID" />
+            <input type="text" class="form-control" name="ProductName" value="@Model.ProductName" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="SupplierID" class="col-md-2 control-label">
+            SupplierID
+        </label>
+        <div class="col-md-10">
+            <input type="text" class="form-control" name="SupplierID" value="@Model.SupplierID" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="CategoryID" class="col-md-2 control-label">
+            CategoryID
+        </label>
+        <div class="col-md-10">
+            <input type="text" class="form-control" name="CategoryID" value="@Model.CategoryID" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="QuantityPerUnit" class="col-md-2 control-label">
+            QuantityPerUnit
+        </label>
+        <div class="col-md-10">
+            <input type="text" class="form-control" name="QuantityPerUnit" value="@Model.QuantityPerUnit" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="UnitPrice" class="col-md-2 control-label">
+            UnitPrice
+        </label>
+        <div class="col-md-10">
+            <input type="text" class="form-control" name="UnitPrice" value="@Model.UnitPrice" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="UnitsInStock" class="col-md-2 control-label">
+            UnitsInStock
+        </label>
+        <div class="col-md-10">
+            <input type="text" class="form-control" name="UnitsInStock" value="@Model.UnitsInStock" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="UnitsOnOrder" class="col-md-2 control-label">
+            UnitsOnOrder
+        </label>
+        <div class="col-md-10">
+            <input type="text" class="form-control" name="UnitsOnOrder" value="@Model.UnitsOnOrder" />
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <button type="submit" class="btn btn-default">修改</button>
+        </div>
+    </div>
+</form>
+
+
+

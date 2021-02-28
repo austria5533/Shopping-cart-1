@@ -1,0 +1,36 @@
+﻿@model IEnumerable<FirstPractice.Models.Category>
+
+@{
+    ViewBag.Title = "種類資訊";
+}
+
+    <h2>種類資訊</h2>
+
+<table class="table table-bordered table-hover">
+
+
+    <thead>
+        <tr>
+
+            <th>種類ＩＤ</th>
+            <th>種類名稱</th>
+            <th>資訊</th>
+
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var _category in Model)
+        {
+            <tr>
+                <td>@_category.CategoryID</td>
+                <td>@_category.CategoryName</td>
+                <td>@_category.Description</td>     
+            </tr>
+        }
+    </tbody>
+
+</table>
+
+<a href="~/Category/Index" class="btn btn-primary">回到產品種類分類</a>
+<a href="~/Product/Index" class="btn btn-primary">回上一頁</a>

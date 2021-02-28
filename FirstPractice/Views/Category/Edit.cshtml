@@ -1,0 +1,34 @@
+﻿
+@{
+    ViewBag.Title = "產品分類修改";
+}
+
+<h2>產品分類修改</h2>
+
+@Html.AntiForgeryToken()
+<form method="post" action="~/Category/Edit" class="form-horizontal">
+    <div class="form-group">
+        <label for="CategoryName" class="col-md-2 control-label">
+            CategoryName
+        </label>
+        <div class="col-md-10">
+            <input type="hidden" name="CategoryID" value="@Model.CategoryID" />
+            <input type="text" class="form-control" name="CategoryName" value="@Model.CategoryName" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="CategoryName" class="col-md-2 control-label">
+            Description
+        </label>
+        <div class="col-md-10">
+            <input type="text" class="form-control" name="Description" value="@Model.Description" />
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <button type="submit" class="btn btn-default">修改</button>
+        </div>
+    </div>
+</form>
+
+

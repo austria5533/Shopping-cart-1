@@ -1,0 +1,52 @@
+﻿@model IEnumerable<FirstPractice.Models.Supplier>
+
+@{
+    ViewBag.Title = "供應商資訊";
+}
+
+<h2>供應商資訊</h2>
+
+
+
+
+<table class="table table-bordered table-hover">
+
+
+    <thead>
+        <tr>
+
+            <th>供應商編號</th>
+            <th>供應商名稱</th>
+            <th>聯絡人</th>
+            <th>聯絡人職位</th>
+            <th>地址</th>
+            <th>城市</th>
+            <th>郵遞區號</th>
+            <th>國家</th>
+            <th>連絡電話</th>
+
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var _supplier in Model)
+        {
+            <tr>
+
+                <td>@_supplier.SupplierID</td>
+                <td>@_supplier.CompanyName</td>
+                <td>@_supplier.ContactName</td>
+                <td>@_supplier.ContactTitle</td>
+                <td>@_supplier.Address</td>
+                <td>@_supplier.City</td>
+                <td>@_supplier.PostalCode</td>
+                <td>@_supplier.Country</td>
+                <td>@_supplier.Phone</td>
+            </tr>
+        }
+    </tbody>
+
+</table>
+
+<a href="~/Category/Index" class="btn btn-primary">回到產品種類分類</a>
+@*<a href="~/Product/Search/@ViewBag.CategoryID" class="btn btn-primary">回上一頁</a>*@

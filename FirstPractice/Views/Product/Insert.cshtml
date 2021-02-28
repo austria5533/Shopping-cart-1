@@ -1,0 +1,78 @@
+﻿@model IEnumerable<FirstPractice.Models.Product>
+@{
+    ViewBag.Title = "新增產品";
+}
+
+@Html.AntiForgeryToken()
+  
+<h2>新增產品</h2>
+<form method="post" action="~/Product/Insert" class="form-horizontal">
+    <div class="form-group">
+        <label for="ProductName" class="col-sm-2 control-label">產品名稱</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" name="ProductName" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="CategoryID" class="col-sm-2 control-label">選擇種類</label>
+        <div class="col-sm-10">
+            <select id="CategoryID" name="CategoryID" class="form-control">
+                @foreach (var _product in Model)
+                {
+                    if (_product.CategoryID != 0)
+                    {
+                        <option selected="selected" value="@_product.CategoryID">@_product.CategoryID @_product.CategoryName</option>
+                    }
+
+                }
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="SupplierID" class="col-sm-2 control-label">選擇供應商</label>
+        <div class="col-sm-10">
+            <select id="SupplierID" name="SupplierID" class="form-control">
+                @foreach (var _product in Model)
+                {
+                    if (_product.SupplierID != 0)
+                    {
+                        <option selected="selected" value="@_product.SupplierID">@_product.SupplierID @_product.CompanyName</option>
+                    }
+
+                }
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="QuantityPerUnit" class="col-sm-2 control-label">QuantityPerUnit</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" name="QuantityPerUnit" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="UnitPrice" class="col-sm-2 control-label">價錢</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" name="UnitPrice" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="UnitsInStock" class="col-sm-2 control-label">庫存量</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" name="UnitsInStock" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="UnitsOnOrder" class="col-sm-2 control-label">UnitsOnOrder</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" name="UnitsOnOrder" />
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-default">
+                新增
+            </button>
+        </div>
+    </div>
+</form>
+
